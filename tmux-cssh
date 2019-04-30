@@ -2,6 +2,7 @@
 
 hosts=""
 ssh_options=""
+tmux_attach_options=""
 tmux_session_name="cssh"
 
 usage() {
@@ -13,6 +14,7 @@ usage() {
     echo "  -h                  Show help" >&2
     echo "  -n <name>           Name of the tmux session (default: cssh)" >&2
     echo "  -o <ssh args>       Additional SSH arguments" >&2
+    echo "  -I                  Use iterm2 tmux integration" >&2
 }
 
 while [ $# -ne 0 ]; do
@@ -32,6 +34,10 @@ while [ $# -ne 0 ]; do
                 exit 2
             fi
             ssh_options="$1"; shift
+            ;;
+        -I)
+            shift;
+            tmux_attach_options="-CC "
             ;;
         -h)
             usage
@@ -76,7 +82,7 @@ if [ -n "${TMUX}" ]; then
     tmux switch-client -t "${tmux_session}"
 else
     # We are NOT in a tmux, attach to the new session
-    tmux attach-session -t "${tmux_session}"
+    tmux ${tmux_attach_options} attach-session -t "${tmux_session}"
 fi
 
 exit 0

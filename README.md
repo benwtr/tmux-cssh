@@ -29,10 +29,11 @@ Options:
   -h                  Show help
   -n <name>           Name of the tmux session (default: cssh)
   -o <ssh args>       Additional SSH arguments
+  -I                  Use iterm2 tmux integration
 
 % tmux-cssh web{1..4}
 
-% tmux-cssh -o '-p 2222 -l my_user' web{1..4}
+% tmux-cssh -I -o '-p 2222 -l my_user' web{1..4}
 ```
 
 # License
